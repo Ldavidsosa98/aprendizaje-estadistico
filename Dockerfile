@@ -1,4 +1,4 @@
-FROM rocker/verse:4.2.1
+FROM rocker/verse:4.2.2
 MAINTAINER Alfredo Garbuno Iñigo "alfredo.garbuno@itam.mx"
 
 # Lets declare some user variables =============================================
@@ -27,7 +27,8 @@ RUN tlmgr install amsmath latex-amsmath-dev iftex kvoptions \
     ltxcmds kvsetkeys etoolbox xcolor geometry fancyvrb framed booktabs \
     auxhook bigintcalc bitset etexcmds gettitlestring hycolor hyperref \
     intcalc kvdefinekeys letltxmacro pdfescape refcount rerunfilecheck \
-    stringenc uniquecounter zapfding pdftexcmds infwarerr epstopdf-pkg mdwtools    
+    stringenc uniquecounter zapfding pdftexcmds infwarerr epstopdf-pkg mdwtools \
+    awesomebox fontawesome5
 
 # Clean up =====================================================================
 RUN apt-get clean all \
@@ -44,7 +45,7 @@ COPY renv.lock renv.lock
 COPY .Rprofile .Rprofile
 COPY renv/activate.R renv/activate.R
 COPY renv/settings.dcf renv/settings.dcf
-RUN install2.r --error rmarkdown httpgd languageserver
+RUN install2.r --error rmarkdown languageserver
 
 RUN R -e "renv::restore()"
 RUN rm -rf renv.lock .Rprofile renv
